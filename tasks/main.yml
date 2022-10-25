@@ -5,7 +5,7 @@
       tags: install
   tags: install
 
-- name: pyhton3, apprise install
+- name: python3, apprise install
   include_tasks:
     file: "install_python_apprise.yml"
     apply:
