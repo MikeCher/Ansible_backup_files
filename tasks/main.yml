@@ -1,15 +1,27 @@
 - name: Install dependencies
-  include_tasks: install_dependencies.yml
+  include_tasks:
+    file: "install_dependencies.yml"
+    apply:
+      tags: install
+  tags: install
+
+- name: pyhton3, apprise install
+  include_tasks:
+    file: "install_python_apprise.yml"
+    apply:
+      tags: install
   tags: install
 
 - name: Create configs
-  include_tasks: create_configs.yml
+  include_tasks:
+    file: "create_configs.yml"
+    apply:
+      tags: config
   tags: config
 
 - name: Configure cron
-  include_tasks: configure_cron.yml
-  tags: cron
-
-- name: pyhton3, apprise install
-  include_tasks: install_python_apprise.yml
+  include_tasks:
+    file: "configure_cron.yml"
+    apply:
+      tags: cron
   tags: cron

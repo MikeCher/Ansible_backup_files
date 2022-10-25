@@ -18,6 +18,8 @@ backup:
   #    retain_count: 5
   #    filter_date: '"5 min ago"'
   #    cron:
+  #         before_job: 'some_before_job'
+  #         after_job: 'some_after_job'
   #         minute: "*"
   #         hour: "*"
   #         day: "*"

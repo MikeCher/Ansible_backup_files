@@ -6,8 +6,8 @@
     day: "{{ item.cron.day }}"
     weekday: "{{ item.cron.weekday }}"
     month: "{{ item.cron.month }}"
-    job: |
-
-          /usr/local/bin/backup_to_s3.sh -n {{ item.name_backup }} -s {{ item.src_backup }} -d {{ item.aws_dest }} -t {{ item.tmp_dir }} -r {{ item.retain_count }} -e {{ item.filter_date }} >> /var/log/files_backup.log 2>&1 
-
+    job: >
+      {% if item.cron.before_job is defined %}{{item.cron.before_job}} &&{% endif %}
+      /usr/local/bin/backup_to_s3.sh -n {{ item.name_backup }} -s {{ item.src_backup }} -d {{ item.aws_dest }} -t {{ item.tmp_dir }} -r {{ item.retain_count }} -e {{ item.filter_date }} >> /var/log/files_backup.log 2>&1
+      {% if item.cron.after_job is defined %}&& {{item.cron.after_job}}{%endif%}
   with_items: "{{ backup.paths }}"
